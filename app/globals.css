@@ -88,6 +88,10 @@
     letter-spacing: -0.04em;
     font-variant-numeric: tabular-nums;
   }
+  /* Resplandor azul: gradiente radial (mucho más liviano que filter: blur) */
+  .glow {
+    background: radial-gradient(closest-side, rgb(8 102 255 / 0.22), rgb(8 102 255 / 0.08) 45%, transparent 100%);
+  }
   /* Marcador visible de contenido pendiente */
   .completar {
     background: rgb(250 204 21 / 0.16);

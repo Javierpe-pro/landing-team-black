@@ -35,7 +35,7 @@ export function TasacionSection() {
       className="on-dark relative overflow-hidden bg-ink py-20 text-white sm:py-28"
     >
       <PeakLines className="-left-48 top-0 h-full w-[900px]" />
-      <div aria-hidden className="pointer-events-none absolute -right-40 bottom-0 size-[520px] rounded-full bg-brand/20 blur-[130px]" />
+      <div aria-hidden className="glow pointer-events-none absolute -right-60 -bottom-40 size-[760px]" />
 
       <div className="relative mx-auto grid max-w-6xl gap-10 px-5 sm:px-8 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
         <div className="lg:pt-6">

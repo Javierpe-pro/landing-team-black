@@ -16,11 +16,11 @@ export function Hero() {
       <PeakLines className="-right-40 top-0 h-[120%] w-[900px] opacity-90 sm:right-[-120px]" />
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-40 top-24 size-[520px] rounded-full bg-brand/15 blur-[120px]"
+        className="glow pointer-events-none absolute -left-60 top-0 size-[760px]"
       />
 
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
-        <div className="animate-fade-up">
+        <div>
           <p className="eyebrow flex items-center gap-3 text-brand-soft">
             <span aria-hidden className="h-px w-8 bg-brand" />
             {hero.eyebrow}
