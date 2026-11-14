@@ -76,6 +76,21 @@ export const hero = {
   panelPie: "La decisión final sobre el inquilino siempre es tuya.",
 };
 
+/** Cinta en movimiento debajo del hero (solo datos reales de las propuestas). */
+export const cinta = {
+  label: "Lo que incluye el servicio",
+  items: [
+    "Tasación con comparables de la zona",
+    "Visitas coordinadas y acompañadas",
+    "Filtro del candidato",
+    "Garantía validada o seguro de caución",
+    "$0 de comisión para el inquilino",
+    "Alquiler tradicional y temporario",
+    "+15,8K en Instagram",
+    "Solo propiedades en CABA",
+  ],
+};
+
 export const modalidades = {
   eyebrow: "01 — La modalidad",
   titulo: "Dos formas de alquilar. Un solo broker a cargo.",

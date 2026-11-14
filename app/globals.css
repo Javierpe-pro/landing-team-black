@@ -23,6 +23,55 @@
   --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
 
   --animate-fade-up: fade-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-drift: drift 18s ease-in-out infinite alternate;
+  --animate-marquee: marquee 45s linear infinite;
+  --animate-pop: pop 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  --animate-step-in: step-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-float: float 5s ease-in-out infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -8px, 0);
+    }
+  }
+
+  @keyframes drift {
+    from {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    to {
+      transform: translate3d(90px, 70px, 0) scale(1.18);
+    }
+  }
+  @keyframes marquee {
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+  @keyframes pop {
+    from {
+      opacity: 0.35;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes step-in {
+    from {
+      opacity: 0;
+      transform: translate3d(18px, 0, 0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
 
   @keyframes fade-up {
     from {
@@ -114,6 +163,153 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+}
+
+/* =====================================================================
+ * MOVIMIENTO
+ * Todo anima solo transform / opacity (baratos para la GPU) y respeta
+ * prefers-reduced-motion (ver bloque final).
+ * ===================================================================== */
+
+/* Aparición al hacer scroll: <RevealObserver /> agrega .reveal-ready al <html>
+   (sin JS no se oculta nada) y .is-visible a cada [data-reveal] al entrar en pantalla. */
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 32px, 0);
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    translate 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+.reveal-ready [data-reveal="left"] {
+  transform: translate3d(-36px, 0, 0);
+}
+.reveal-ready [data-reveal="right"] {
+  transform: translate3d(36px, 0, 0);
+}
+.reveal-ready [data-reveal="scale"] {
+  transform: scale(0.94);
+}
+.reveal-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+/* Línea del timeline que "crece" cuando aparece el paso */
+.reveal-ready [data-reveal] .grow-y {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.35s;
+}
+.reveal-ready [data-reveal].is-visible .grow-y {
+  transform: none;
+}
+
+/* Brillo que recorre el texto azul del titular */
+.text-shimmer {
+  background: linear-gradient(100deg, #0866ff 0%, #0866ff 38%, #8ab6ff 50%, #0866ff 62%, #0866ff 100%);
+  background-size: 260% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s ease-in-out 1.2s infinite;
+}
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  55%,
+  100% {
+    background-position: 0% 0;
+  }
+}
+
+/* Líneas de pico que se dibujan al cargar */
+.peak-draw path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 2.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.peak-draw path:nth-child(2) {
+  animation-delay: 0.25s;
+}
+.peak-draw path:nth-child(3) {
+  animation-delay: 0.5s;
+}
+.peak-draw path:nth-child(4) {
+  animation-delay: 0.75s;
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Botón primario: brillo al pasar y flecha que avanza */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.28) 50%, transparent 70%);
+  transform: translate3d(-120%, 0, 0);
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.btn-primary:hover::after {
+  transform: translate3d(120%, 0, 0);
+}
+.btn-primary svg:last-child {
+  transition: transform 0.25s ease;
+}
+.btn-primary:hover svg:last-child {
+  transform: translate3d(4px, 0, 0);
+}
+
+/* Pulso suave alrededor del botón de WhatsApp flotante */
+.pulse-ring {
+  position: relative;
+}
+.pulse-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: var(--color-whatsapp);
+  animation: ring 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) infinite;
+  z-index: -1;
+}
+@keyframes ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.65);
+    opacity: 0;
+  }
+}
+
+/* Header más sólido al scrollear */
+.site-header {
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+html[data-scrolled] .site-header {
+  background-color: rgb(10 10 15 / 0.94);
+  box-shadow: 0 10px 30px -12px rgb(0 0 0 / 0.8);
+}
+
+/* Cinta en movimiento: se frena al pasar el mouse */
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -2,6 +2,7 @@ import { proceso as c } from "@/content/copy";
 import { Section } from "@/components/ui/Section";
 import { IconCheck } from "@/components/ui/Icons";
 import { PeakLines } from "@/components/ui/PeakLines";
+import { reveal } from "@/components/motion/reveal";
 
 export function Proceso() {
   return (
@@ -14,13 +15,19 @@ export function Proceso() {
             {c.pasos.map((p, i) => {
               const ultimo = i === c.pasos.length - 1;
               return (
-                <li key={p.titulo} className="relative grid grid-cols-[3rem_1fr] gap-4 pb-8 last:pb-0 sm:grid-cols-[3.5rem_1fr]">
+                <li
+                  key={p.titulo}
+                  {...reveal(i, "left", 110)}
+                  className="group relative grid grid-cols-[3rem_1fr] gap-4 pb-8 last:pb-0 sm:grid-cols-[3.5rem_1fr]"
+                >
                   {!ultimo && (
-                    <span aria-hidden className="absolute left-6 top-12 h-[calc(100%-3rem)] w-px bg-gradient-to-b from-brand/60 to-line sm:left-7" />
+                    <span aria-hidden className="grow-y absolute left-6 top-12 h-[calc(100%-3rem)] w-px bg-gradient-to-b from-brand/60 to-line sm:left-7" />
                   )}
                   <span
-                    className={`num relative grid size-12 place-items-center rounded-full text-sm ring-1 sm:size-14 sm:text-base ${
-                      ultimo ? "bg-brand text-white ring-brand" : "bg-ink-2 text-brand-soft ring-line"
+                    className={`num relative grid size-12 place-items-center rounded-full text-sm ring-1 transition-[background-color,color,box-shadow] duration-300 sm:size-14 sm:text-base ${
+                      ultimo
+                        ? "bg-brand text-white ring-brand"
+                        : "bg-ink-2 text-brand-soft ring-line group-hover:bg-brand group-hover:text-white group-hover:ring-brand"
                     }`}
                   >
                     0{i + 1}
@@ -33,20 +40,20 @@ export function Proceso() {
               );
             })}
           </ol>
-          <p className="mt-10 flex items-start gap-3 rounded-2xl bg-white/[0.04] p-5 text-[0.98rem] text-white ring-1 ring-line">
+          <p {...reveal(0)} className="mt-10 flex items-start gap-3 rounded-2xl bg-white/[0.04] p-5 text-[0.98rem] text-white ring-1 ring-line">
             <IconCheck className="mt-0.5 shrink-0 text-brand-soft" />
             {c.nota}
           </p>
         </div>
 
         {/* Temporario: valor de salida + durante el contrato */}
-        <aside className="self-start rounded-3xl bg-ink-2 p-6 ring-1 ring-line sm:p-8 lg:sticky lg:top-28">
+        <aside {...reveal(1, "right", 150)} className="self-start rounded-3xl bg-ink-2 p-6 ring-1 ring-line sm:p-8 lg:sticky lg:top-28">
           <p className="eyebrow inline-flex rounded-md bg-brand px-3 py-1.5 text-white">{c.temporario.tag}</p>
           <h3 className="display mt-5 text-2xl">{c.temporario.titulo}</h3>
           <p className="mt-3 text-[0.95rem] leading-relaxed text-mute">{c.temporario.texto}</p>
           <ol className="mt-6 grid grid-cols-3 gap-2.5">
             {c.temporario.factores.map((f, i) => (
-              <li key={f} className="rounded-2xl bg-ink p-3.5 ring-1 ring-line">
+              <li key={f} className="rounded-2xl bg-ink p-3.5 ring-1 ring-line transition-[box-shadow] hover:ring-brand/50">
                 <span className="num block text-xs text-brand-soft">0{i + 1}</span>
                 <span className="mt-1.5 block font-display text-[0.82rem] font-bold sm:text-sm">{f}</span>
               </li>

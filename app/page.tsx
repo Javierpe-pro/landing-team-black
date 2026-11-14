@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { StickyMobileCta } from "@/components/layout/StickyMobileCta";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
+import { Marquee } from "@/components/motion/Marquee";
 import { Modalidades } from "@/components/sections/Modalidades";
 import { Proceso } from "@/components/sections/Proceso";
 import { Honorarios } from "@/components/sections/Honorarios";
@@ -29,6 +30,7 @@ export default async function Home() {
       <Header mostrarAlquiladas={mostrarAlquiladas} />
       <main>
         <Hero />
+        <Marquee />
         <Modalidades />
         <Proceso />
         <Honorarios />

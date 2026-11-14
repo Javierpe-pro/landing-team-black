@@ -4,15 +4,17 @@ import { Section } from "@/components/ui/Section";
 import { Tabs } from "@/components/ui/Tabs";
 import { IconCheck, IconDash } from "@/components/ui/Icons";
 import { CalculadoraTemporario, CalculadoraTradicional } from "./Calculadora";
+import { reveal } from "@/components/motion/reveal";
+import { CountUp } from "@/components/motion/CountUp";
 
 type Mod = typeof c.tradicional | typeof c.temporario;
 
 function Panel({ m, calc }: { m: Mod; calc: ReactNode }) {
   return (
     <div className="grid gap-6 lg:grid-cols-[1.15fr_1fr] lg:gap-8">
-      <div className="rounded-3xl bg-white p-6 ring-1 ring-ink/[0.06] sm:p-9">
+      <div {...reveal(0)} className="rounded-3xl bg-white p-6 ring-1 ring-ink/[0.06] sm:p-9">
         <div className="flex flex-wrap items-end gap-x-4 gap-y-1">
-          <p className="num text-[4.5rem] leading-[0.9] text-ink sm:text-[7rem]">{m.numero}</p>
+          <CountUp value={m.numero} duration={1600} className="num block text-[4.5rem] leading-[0.9] text-ink sm:text-[7rem]" />
           <p className="pb-2 font-display text-base font-bold leading-tight text-ink sm:pb-3 sm:text-lg">
             {m.numeroDetalle}
           </p>
@@ -51,7 +53,7 @@ function Panel({ m, calc }: { m: Mod; calc: ReactNode }) {
         </div>
       </div>
 
-      <div className="on-dark self-start rounded-3xl bg-ink p-6 text-white sm:p-8">
+      <div {...reveal(1, "right", 150)} className="on-dark self-start rounded-3xl bg-ink p-6 text-white sm:p-8">
         <p className="eyebrow text-brand-soft">{c.calcTitulo}</p>
         <div className="mt-6">{calc}</div>
         <p className="mt-5 text-xs leading-relaxed text-mute">{c.disclaimer}</p>

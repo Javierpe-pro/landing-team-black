@@ -5,6 +5,7 @@ import { ALLOW_INDEXING, SITE_URL } from "@/lib/site";
 import { MetaPixel } from "@/components/tracking/MetaPixel";
 import { PageBootstrap } from "@/components/tracking/PageBootstrap";
 import { CookieNotice } from "@/components/tracking/CookieNotice";
+import { RevealObserver } from "@/components/motion/RevealObserver";
 import "./globals.css";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="es-AR" className={`${inter.variable} ${montserrat.variable} antialiased`}>
       <body className="min-h-dvh bg-ink">
         {children}
+        <RevealObserver />
         <PageBootstrap />
         <CookieNotice />
         <MetaPixel />

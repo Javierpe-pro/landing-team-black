@@ -17,7 +17,7 @@ export function Accordion({ items }: { items: AccordionItem[] }) {
         const btnId = `${uid}-q-${i}`;
         const panelId = `${uid}-a-${i}`;
         return (
-          <li key={i}>
+          <li key={i} data-reveal="" data-reveal-delay={i ? String(Math.min(i, 5) * 60) : undefined}>
             <h3>
               <button
                 id={btnId}

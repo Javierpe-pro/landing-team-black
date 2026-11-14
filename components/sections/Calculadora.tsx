@@ -51,7 +51,9 @@ function Fila({ label, valor, fuerte = false }: { label: string; valor: string; 
     <div className={`flex items-baseline justify-between gap-4 py-3 ${fuerte ? "" : "border-b border-line"}`}>
       <dt className={fuerte ? "font-display font-bold text-white" : "text-sm text-mute"}>{label}</dt>
       <dd className={`num whitespace-nowrap text-right ${fuerte ? "text-[1.7rem] text-brand-soft sm:text-4xl" : "text-lg text-white"}`}>
-        {valor}
+        <span key={valor} className="inline-block animate-pop">
+          {valor}
+        </span>
       </dd>
     </div>
   );

@@ -287,7 +287,7 @@ export function LeadForm() {
 
         {/* PASO 1 — Contacto */}
         {step === 0 && (
-          <fieldset className="space-y-5">
+          <fieldset className="animate-step-in space-y-5">
             <legend className="sr-only">{c.pasos[0]}</legend>
             <h3 ref={stepHeading} tabIndex={-1} className="display text-2xl text-ink outline-none">
               {c.pasos[0]}
@@ -357,7 +357,7 @@ export function LeadForm() {
 
         {/* PASO 2 — La propiedad */}
         {step === 1 && (
-          <fieldset className="space-y-6">
+          <fieldset className="animate-step-in space-y-6">
             <legend className="sr-only">{c.pasos[1]}</legend>
             <div>
               <h3 ref={stepHeading} tabIndex={-1} className="display text-2xl text-ink outline-none">
@@ -486,7 +486,7 @@ export function LeadForm() {
             </div>
 
             {pideEquipamiento && (
-              <div className="space-y-5 rounded-2xl bg-brand/[0.06] p-4 ring-1 ring-brand/20 sm:p-5">
+              <div className="animate-fade-up space-y-5 rounded-2xl bg-brand/[0.06] p-4 ring-1 ring-brand/20 sm:p-5">
                 <p className="text-sm font-medium text-ink">{c.campos.equipamientoNota}</p>
                 <FieldShell as="fieldset" id={id("amoblada")} label={c.campos.amoblada.label} error={e("amoblada")}>
                   <div className="grid grid-cols-3 gap-2">
@@ -525,7 +525,7 @@ export function LeadForm() {
 
         {/* PASO 3 — Detalles */}
         {step === 2 && (
-          <fieldset className="space-y-6">
+          <fieldset className="animate-step-in space-y-6">
             <legend className="sr-only">{c.pasos[2]}</legend>
             <h3 ref={stepHeading} tabIndex={-1} className="display text-2xl text-ink outline-none">
               {c.pasos[2]}

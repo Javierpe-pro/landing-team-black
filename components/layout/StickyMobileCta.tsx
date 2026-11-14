@@ -10,16 +10,28 @@ import { IconWhatsApp } from "@/components/ui/Icons";
  * para no tapar sus botones.
  */
 export function StickyMobileCta() {
-  const [oculta, setOculta] = useState(false);
+  const [formVisible, setFormVisible] = useState(false);
+  const [pasoHero, setPasoHero] = useState(false);
+  const oculta = formVisible || !pasoHero;
 
   useEffect(() => {
+    // Aparece recién cuando el usuario bajó más allá del primer CTA del hero
+    const onScroll = () => setPasoHero(window.scrollY > window.innerHeight * 0.55);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
     const form = document.getElementById("tasacion");
-    if (!form || !("IntersectionObserver" in window)) return;
-    const io = new IntersectionObserver(([e]) => setOculta(e.isIntersecting), {
-      rootMargin: "0px 0px -20% 0px",
-    });
-    io.observe(form);
-    return () => io.disconnect();
+    let io: IntersectionObserver | undefined;
+    if (form && "IntersectionObserver" in window) {
+      io = new IntersectionObserver(([e]) => setFormVisible(e.isIntersecting), {
+        rootMargin: "0px 0px -20% 0px",
+      });
+      io.observe(form);
+    }
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      io?.disconnect();
+    };
   }, []);
 
   return (
@@ -41,7 +53,7 @@ export function StickyMobileCta() {
           origen="sticky_mobile"
           aria-label={nav.whatsappAria}
           unstyled
-          className="grid size-12 shrink-0 place-items-center rounded-full bg-whatsapp text-ink active:scale-[0.96]"
+          className="pulse-ring isolate grid size-12 shrink-0 place-items-center rounded-full bg-whatsapp text-ink active:scale-[0.96]"
         >
           <IconWhatsApp width={24} height={24} />
         </WhatsAppLink>

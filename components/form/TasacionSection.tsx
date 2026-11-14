@@ -35,10 +35,10 @@ export function TasacionSection() {
       className="on-dark relative overflow-hidden bg-ink py-20 text-white sm:py-28"
     >
       <PeakLines className="-left-48 top-0 h-full w-[900px]" />
-      <div aria-hidden className="glow pointer-events-none absolute -right-60 -bottom-40 size-[760px]" />
+      <div aria-hidden className="glow pointer-events-none absolute -right-60 -bottom-40 size-[760px] animate-drift will-change-transform" />
 
       <div className="relative mx-auto grid max-w-6xl gap-10 px-5 sm:px-8 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
-        <div className="lg:pt-6">
+        <div data-reveal="left" className="lg:pt-6">
           <p className="eyebrow flex items-center gap-3 text-brand-soft">
             <span aria-hidden className="h-px w-8 bg-brand" />
             {c.eyebrow}
@@ -61,7 +61,7 @@ export function TasacionSection() {
           </ul>
         </div>
 
-        <div className="on-light relative rounded-3xl bg-white p-5 text-ink shadow-[0_30px_80px_-30px_rgb(8_102_255/0.45)] sm:p-9">
+        <div data-reveal="scale" className="on-light relative rounded-3xl bg-white p-5 text-ink shadow-[0_30px_80px_-30px_rgb(8_102_255/0.45)] sm:p-9">
           <LeadForm />
         </div>
       </div>

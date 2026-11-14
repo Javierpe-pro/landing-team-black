@@ -38,7 +38,7 @@ export function Section({
     >
       <div className="relative mx-auto w-full max-w-6xl px-5 sm:px-8">
         {(eyebrow || title) && (
-          <header className="mb-10 flex flex-col gap-6 sm:mb-14 lg:flex-row lg:items-end lg:justify-between">
+          <header data-reveal="" className="mb-10 flex flex-col gap-6 sm:mb-14 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
               {eyebrow && (
                 <p className={`eyebrow mb-4 ${dark ? "text-brand-soft" : "text-brand-ink"}`}>{eyebrow}</p>
