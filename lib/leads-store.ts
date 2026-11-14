@@ -7,6 +7,8 @@ import path from "node:path";
  * Se elige con la variable de entorno LEADS_STORAGE:
  *   - "file"     → ./.data/leads.jsonl (solo desarrollo local; Vercel no tiene disco persistente)
  *   - "supabase" → tabla public.leads, insertando con la service role key DESDE EL SERVIDOR.
+ *   - "log"      → no guarda nada: escribe el lead en los logs del servidor. Solo para
+ *                  previsualizaciones visuales (ej. Vercel de pruebas sin base de datos).
  */
 
 /** Fila tal como se guarda (coincide 1:1 con las columnas de public.leads). */
@@ -110,11 +112,27 @@ const supabaseStore: LeadsStore = {
   },
 };
 
+// ---------------- Adaptador: solo logs (previews sin base) ----------------
+const logStore: LeadsStore = {
+  async insert(lead) {
+    console.info("[leads:log] Lead recibido (NO se guarda):", {
+      modalidad: lead.modalidad,
+      barrio: lead.barrio,
+      event_id: lead.event_id,
+      utm_source: lead.utm_source,
+    });
+  },
+  async list() {
+    return [];
+  },
+};
+
 export function getLeadsStore(): LeadsStore {
   const mode = (process.env.LEADS_STORAGE || "file").toLowerCase();
   if (mode === "supabase") return supabaseStore;
   if (mode === "file") return fileStore;
-  throw new Error(`LEADS_STORAGE inválido: "${mode}". Usá "file" o "supabase".`);
+  if (mode === "log") return logStore;
+  throw new Error(`LEADS_STORAGE inválido: "${mode}". Usá "file", "supabase" o "log".`);
 }
 
 export const LEADS_STORAGE_MODE = (process.env.LEADS_STORAGE || "file").toLowerCase();

@@ -56,7 +56,7 @@ Ver `.env.example` (cada variable está comentada). Resumen:
 
 | Variable | Para qué |
 |---|---|
-| `LEADS_STORAGE` | `file` (local) o `supabase` (Vercel/producción) |
+| `LEADS_STORAGE` | `file` (local), `supabase` (producción) o `log` (preview visual: no guarda, solo deja registro en los logs) |
 | `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | Solo servidor. La service role key **nunca** va en una variable `NEXT_PUBLIC_` ni se commitea |
 | `IP_HASH_SALT` | Sal para guardar la IP como hash (no se guarda la IP real) |
 | `NEXT_PUBLIC_SITE_URL` | URL pública (para la vista previa al compartir) |
