@@ -95,6 +95,7 @@ export const modalidades = {
   intro: "La misma propiedad puede rendir distinto según cómo se alquile. Elegí la que mejor se adapta a vos.",
   tradicional: {
     tag: "Alquiler tradicional",
+    selector: "12 meses o más · Vivienda permanente",
     titulo: "Un inquilino estable, un ingreso previsible.",
     resumen:
       "Contrato de vivienda permanente. El inquilino se instala por un año o más y vos cobrás un alquiler mensual fijado por contrato.",
@@ -120,6 +121,7 @@ export const modalidades = {
   },
   temporario: {
     tag: "Alquiler temporario",
+    selector: "3 a 12 meses · Amoblada y equipada",
     titulo: "Propiedades listas para habitar.",
     resumen:
       "Contratos mensuales de 3 a 12 meses. La propiedad se entrega amoblada y equipada, lista para recibir al inquilino, que paga mes a mes.",
@@ -146,6 +148,9 @@ export const modalidades = {
   },
   paraQuienTitulo: "Para quién es",
   honorarioLabel: "Honorarios",
+  selectorAyuda: "Tocá una modalidad para ver el detalle",
+  verDetalle: "Ver detalle",
+  ocultarDetalle: "Ocultar",
   guia: {
     titulo: "¿No sabés cuál te conviene?",
     texto: "Lo vemos con los números de tu propiedad: valor de alquiler en cada modalidad, plazos y costos.",
