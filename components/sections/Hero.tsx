@@ -77,9 +77,6 @@ export function Hero() {
               </div>
             ))}
           </dl>
-          <p className="mt-6 animate-fade-up text-sm text-mute" style={d(660)}>
-            <CountUp value={hero.social.valor} className="num text-base text-white" /> {hero.social.label}
-          </p>
         </div>
 
         {/* Panel: lo que incluye el servicio (solo desktop) */}

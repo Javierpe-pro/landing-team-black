@@ -60,10 +60,9 @@ export const hero = {
   zona: "Solo propiedades en la Ciudad de Buenos Aires",
   datos: [
     { valor: "4,15%", label: "Honorarios en alquiler tradicional" },
-    { valor: "$0", label: "Comisión para el inquilino" },
     { valor: "6 pasos", label: "De la tasación a la entrega de llaves" },
+    { valor: "+15,8K", label: "Comunidad en Instagram" },
   ],
-  social: { valor: "+15,8K", label: "comunidad en Instagram (@amaya.realestate)" },
   panelTitulo: "Lo que hacemos por vos",
   panelItems: [
     "Tasación con comparables de la zona",
@@ -84,7 +83,6 @@ export const cinta = {
     "Visitas coordinadas y acompañadas",
     "Filtro del candidato",
     "Garantía validada o seguro de caución",
-    "$0 de comisión para el inquilino",
     "Alquiler tradicional y temporario",
     "+15,8K en Instagram",
     "Solo propiedades en CABA",
@@ -118,7 +116,7 @@ export const modalidades = {
     ],
     paraQuien:
       "Para el propietario que prioriza estabilidad: ingreso mensual fijo, baja rotación y menor desgaste de la propiedad.",
-    honorario: { valor: "4,15%", detalle: "del valor total del contrato · $0 para el inquilino" },
+    honorario: { valor: "4,15%", detalle: "del valor total del contrato" },
   },
   temporario: {
     tag: "Alquiler temporario",
