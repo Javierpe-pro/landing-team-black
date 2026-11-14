@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+/*
+ * Identidad Team Black by Amaya
+ * - Azul de marca tomado del logo real: #0866FF
+ * - Negro profundo de fondo, secciones claras alternadas en #F3F4F7
+ */
+@theme {
+  --color-ink: #0a0a0f; /* fondo principal */
+  --color-ink-2: #111118; /* tarjetas sobre negro */
+  --color-ink-3: #1a1a23; /* hover / bordes marcados */
+  --color-line: rgb(255 255 255 / 0.09);
+  --color-brand: #0866ff; /* azul eléctrico de marca (CTAs, números) */
+  --color-brand-hover: #2f7dff;
+  --color-brand-soft: #4d8dff; /* azul para texto chico sobre negro (contraste AA) */
+  --color-brand-ink: #0052e0; /* azul para texto chico sobre claro (contraste AA) */
+  --color-paper: #f3f4f7; /* secciones claras */
+  --color-mute: #a1a3b3; /* texto secundario sobre negro */
+  --color-mute-dark: #55586a; /* texto secundario sobre claro */
+  --color-whatsapp: #25d366;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    background: var(--color-ink);
+    color: #fff;
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+  input,
+  select,
+  textarea {
+    scroll-margin-top: 7rem;
+  }
+  ::selection {
+    background: var(--color-brand);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-soft);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  .on-light :focus-visible {
+    outline-color: var(--color-brand-ink);
+  }
+}
+
+@layer components {
+  /* Etiquetas pequeñas en mayúsculas con tracking: "01 — LA MODALIDAD" */
+  .eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.04;
+  }
+  .num {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+  /* Marcador visible de contenido pendiente */
+  .completar {
+    background: rgb(250 204 21 / 0.16);
+    color: #b45309;
+    outline: 1px dashed #eab308;
+    border-radius: 4px;
+    padding: 0 0.3em;
+    font-weight: 600;
+  }
+  /* sobre fondo oscuro (salvo que haya una tarjeta clara de por medio) */
+  .on-dark .completar:not(.on-dark .on-light .completar) {
+    color: #fde047;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
