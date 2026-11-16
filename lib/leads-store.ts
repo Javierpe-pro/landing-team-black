@@ -1,12 +1,15 @@
 import "server-only";
 import { appendFile, mkdir, readFile } from "node:fs/promises";
 import path from "node:path";
+import { LABELS } from "@/lib/lead-schema";
 
 /**
  * Capa de almacenamiento intercambiable para los leads.
  * Se elige con la variable de entorno LEADS_STORAGE:
  *   - "file"     → ./.data/leads.jsonl (solo desarrollo local; Vercel no tiene disco persistente)
  *   - "supabase" → tabla public.leads, insertando con la service role key DESDE EL SERVIDOR.
+ *   - "crm"      → envía el lead a la Edge Function "ads-lead" del Supabase del CRM, que lo guarda
+ *                  en Prospectos → ADS. No usa la service role key. Modo de producción de Javier.
  *   - "log"      → no guarda nada: escribe el lead en los logs del servidor. Solo para
  *                  previsualizaciones visuales (ej. Vercel de pruebas sin base de datos).
  */
@@ -112,6 +115,62 @@ const supabaseStore: LeadsStore = {
   },
 };
 
+
+// ---------------- Adaptador: CRM (Prospectos · ADS) ----------------
+const lab = (group: Record<string, string>, v: string | null) => (v ? (group[v] ?? v) : null);
+
+const crmStore: LeadsStore = {
+  async insert(lead) {
+    const url = process.env.CRM_INGEST_URL;
+    if (!url) throw new Error("Falta CRM_INGEST_URL en las variables de entorno.");
+    const notas = [
+      `Modalidad: ${LABELS.modalidad[lead.modalidad]}`,
+      lead.amoblada ? `Amoblada: ${lab(LABELS.amoblada, lead.amoblada)}` : null,
+      lead.internet ? `Internet: ${lab(LABELS.internet, lead.internet)}` : null,
+      lead.comentarios ? `Comentarios: ${lead.comentarios}` : null,
+    ]
+      .filter(Boolean)
+      .join("\n");
+    const headers: Record<string, string> = { "content-type": "application/json" };
+    if (process.env.CRM_INGEST_TOKEN) headers["x-ingest-token"] = process.env.CRM_INGEST_TOKEN;
+    const res = await fetch(url, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        name: lead.nombre,
+        phone: lead.whatsapp,
+        email: lead.email,
+        property_address: lead.direccion_aprox,
+        notes: notas || null,
+        campaign_name: lead.utm_campaign,
+        utm_source: lead.utm_source,
+        utm_medium: lead.utm_medium,
+        utm_campaign: lead.utm_campaign,
+        utm_content: lead.utm_content,
+        utm_term: lead.utm_term,
+        fbclid: lead.fbclid,
+        landing_url: lead.landing_url,
+        event_id: lead.event_id,
+        tipo_propiedad: lab(LABELS.tipo_propiedad, lead.tipo_propiedad),
+        barrio: lead.barrio,
+        ambientes: lab(LABELS.ambientes, lead.ambientes),
+        m2: lead.m2,
+        piso_unidad: lead.piso_unidad,
+        amoblada: lab(LABELS.amoblada, lead.amoblada),
+        internet: lab(LABELS.internet, lead.internet),
+        disponibilidad: lab(LABELS.disponibilidad, lead.disponibilidad),
+        comentarios: lead.comentarios,
+        valor_esperado: lead.valor_esperado,
+      }),
+    });
+    if (!res.ok) throw new Error(`CRM ingest: HTTP ${res.status}`);
+  },
+  async list() {
+    // Los leads se ven en el CRM (Prospectos → ADS).
+    return [];
+  },
+};
+
 // ---------------- Adaptador: solo logs (previews sin base) ----------------
 const logStore: LeadsStore = {
   async insert(lead) {
@@ -130,9 +189,10 @@ const logStore: LeadsStore = {
 export function getLeadsStore(): LeadsStore {
   const mode = (process.env.LEADS_STORAGE || "file").toLowerCase();
   if (mode === "supabase") return supabaseStore;
+  if (mode === "crm") return crmStore;
   if (mode === "file") return fileStore;
   if (mode === "log") return logStore;
-  throw new Error(`LEADS_STORAGE inválido: "${mode}". Usá "file", "supabase" o "log".`);
+  throw new Error(`LEADS_STORAGE inválido: "${mode}". Usá "file", "supabase", "crm" o "log".`);
 }
 
 export const LEADS_STORAGE_MODE = (process.env.LEADS_STORAGE || "file").toLowerCase();
