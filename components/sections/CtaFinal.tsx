@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ctaFinal as c } from "@/content/copy";
 import { ButtonLink } from "@/components/ui/Button";
 import { IconArrowRight, IconWhatsApp } from "@/components/ui/Icons";
+import { CorredorBadge } from "@/components/ui/CorredorBadge";
 import { PeakLines } from "@/components/ui/PeakLines";
 import { WhatsAppLink } from "@/components/tracking/WhatsAppLink";
 import aMark from "@/public/brand/a-mark.png";
@@ -28,6 +29,7 @@ export function CtaFinal() {
               {c.whatsapp}
             </WhatsAppLink>
           </div>
+          <CorredorBadge className="relative mt-8" />
         </div>
       </div>
     </section>

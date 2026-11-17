@@ -3,8 +3,9 @@
 import { useEffect, useRef } from "react";
 import { formulario as c, hero } from "@/content/copy";
 import { trackOnce } from "@/lib/pixel";
-import { IconCheck, IconMapPin } from "@/components/ui/Icons";
+import { IconCheck, IconMapPin, IconShield } from "@/components/ui/Icons";
 import { PeakLines } from "@/components/ui/PeakLines";
+import { CorredorBadge } from "@/components/ui/CorredorBadge";
 import { LeadForm } from "./LeadForm";
 
 /** Sección del formulario (#tasacion). Dispara ViewContent una sola vez al entrar en pantalla. */
@@ -51,6 +52,7 @@ export function TasacionSection() {
             <IconMapPin width={16} height={16} className="text-brand-soft" />
             {c.zona}
           </p>
+          <CorredorBadge className="mt-6 max-w-md" />
           <ul className="mt-8 hidden space-y-3 lg:block">
             {hero.panelItems.slice(0, 4).map((i) => (
               <li key={i} className="flex items-start gap-3 text-mute">
@@ -63,6 +65,12 @@ export function TasacionSection() {
 
         <div data-reveal="scale" className="on-light relative rounded-3xl bg-white p-5 text-ink shadow-[0_30px_80px_-30px_rgb(8_102_255/0.45)] sm:p-9">
           <LeadForm />
+          <p className="mt-5 flex items-start gap-2 border-t border-slate-200 pt-4 text-xs leading-relaxed text-mute-dark">
+            <IconShield width={14} height={14} className="mt-0.5 shrink-0 text-brand-ink" />
+            <span>
+              Operación a cargo de Juan Amaya, corredor inmobiliario matriculado · <strong className="whitespace-nowrap">CPI 9004</strong>.
+            </span>
+          </p>
         </div>
       </div>
     </section>

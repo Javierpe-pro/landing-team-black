@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { footer, marca } from "@/content/copy";
 import { INSTAGRAM } from "@/lib/site";
+import { CorredorBadge } from "@/components/ui/CorredorBadge";
 import { WhatsAppLink } from "@/components/tracking/WhatsAppLink";
 import { IconGlobe, IconInstagram, IconMail, IconWhatsApp } from "@/components/ui/Icons";
 import logo from "@/public/brand/logo-team-black-blanco.png";
@@ -19,6 +20,7 @@ export function Footer() {
             {marca.empresa} · {marca.ciudad}
           </p>
           <p className="mt-3 text-sm text-mute">{footer.zona}</p>
+          <CorredorBadge className="mt-5 max-w-xs" />
         </div>
 
         <div>

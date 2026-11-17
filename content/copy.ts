@@ -25,6 +25,11 @@ export const marca = {
     javier: "@javierealestate.ar",
     amaya: "@amaya.realestate",
   },
+  corredor: {
+    nombre: "Juan Amaya",
+    rol: "Corredor inmobiliario matriculado",
+    cpi: "CPI 9004",
+  },
   comunidad: "+15,8K",
   comunidadDetalle: "comunidad en Instagram (@amaya.realestate)",
 } as const;
@@ -582,7 +587,7 @@ export const footer = {
   contactoTitulo: "Contacto",
   redesTitulo: "Instagram",
   legal: [
-    "Corredor responsable: Juan Amaya · CPI 9004.",
+    "Corredor responsable: Juan Amaya, corredor inmobiliario matriculado · CPI 9004.",
     "Alquiler de vivienda en CABA: la comisión máxima que se puede requerir al propietario es del 4,15% del valor total del contrato (Ley 5859).",
   ],
   privacidad: "Política de privacidad",

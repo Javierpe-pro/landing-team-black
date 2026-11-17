@@ -4,6 +4,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { IconArrowRight, IconCheck, IconMapPin, IconWhatsApp } from "@/components/ui/Icons";
 import { PeakLines } from "@/components/ui/PeakLines";
 import { WhatsAppLink } from "@/components/tracking/WhatsAppLink";
+import { CorredorBadge } from "@/components/ui/CorredorBadge";
 import { CountUp } from "@/components/motion/CountUp";
 import aMark from "@/public/brand/a-mark.png";
 
@@ -64,7 +65,9 @@ export function Hero() {
             {hero.zona}
           </p>
 
-          <dl className="mt-10 grid grid-cols-3 gap-4 border-t border-line pt-7 sm:gap-8">
+          <CorredorBadge className="mt-5 animate-fade-up" />
+
+          <dl className="mt-8 grid grid-cols-3 gap-4 border-t border-line pt-7 sm:gap-8">
             {hero.datos.map((dato, i) => (
               <div key={dato.valor} className="animate-fade-up" style={d(380 + i * 90)}>
                 <dt className="sr-only">{dato.label}</dt>
