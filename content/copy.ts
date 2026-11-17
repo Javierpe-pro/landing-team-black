@@ -395,7 +395,7 @@ export const porQue = {
   javier: {
     nombre: "Javier Peñalver",
     rol: "Broker inmobiliario · Team Black by Amaya",
-    bio: "[COMPLETAR: bio corta de Javier]",
+    bio: "Soy Javier Peñalver, broker del Team Black en Amaya Real Estate. Hace 6 años me dedico al negocio inmobiliario, asesorando a inversores para potenciar la rentabilidad de sus propiedades. Me ocupo de todo el recorrido: desde la compra o venta para sumar nuevas propiedades hasta definir su destino en alquiler. Y en el alquiler, también de todo: tasar, publicar, filtrar inquilinos y coordinar cada paso.",
     fotoAlt: "Javier Peñalver, broker inmobiliario de Team Black by Amaya",
     fotoPlaceholder: "TODO-FOTO-JAVIER",
     cta: "Hablar con Javier",
