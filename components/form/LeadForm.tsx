@@ -201,7 +201,10 @@ export function LeadForm() {
       };
 
       if (res.ok && json.ok) {
-        track("Lead", { content_category: full.data.modalidad, content_name: full.data.barrio }, eventId);
+        const px = { content_category: full.data.modalidad, content_name: full.data.barrio };
+        track("Lead", px, eventId);
+        // "Registro completado" en Meta = evento estándar CompleteRegistration
+        track("CompleteRegistration", px, `${eventId}_reg`);
         try {
           sessionStorage.removeItem(STORAGE_KEY);
         } catch {

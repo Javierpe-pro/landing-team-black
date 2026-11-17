@@ -2,8 +2,7 @@
  * Helper tipado para el Meta Pixel.
  *
  * Reglas:
- * - El Pixel SOLO se inicializa si existe NEXT_PUBLIC_META_PIXEL_ID **y**
- *   NEXT_PUBLIC_PIXEL_ENABLED === "true". En local y en el Vercel de pruebas va en "false"
+ * - El Pixel se inicializa en producción por defecto (ver PIXEL_ENABLED). En local va apagado
  *   para no ensuciar la cuenta publicitaria de Javier.
  * - Si el Pixel no cargó (adblock) o está deshabilitado, `track` no rompe: no hace nada.
  * - Con NEXT_PUBLIC_PIXEL_DEBUG === "true" cada evento se imprime en consola
@@ -11,15 +10,24 @@
  * - Nunca se envían nombre, teléfono ni email como parámetros.
  */
 
-export const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim() || "";
-export const PIXEL_ENABLED = Boolean(PIXEL_ID) && process.env.NEXT_PUBLIC_PIXEL_ENABLED === "true";
+/** Pixel de Javier (Meta). Se puede pisar con NEXT_PUBLIC_META_PIXEL_ID. */
+const DEFAULT_PIXEL_ID = "2656354184804002";
+export const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim() || DEFAULT_PIXEL_ID;
+/**
+ * Activo por defecto en builds de producción (Netlify). En desarrollo local queda apagado
+ * para no ensuciar la cuenta. Se fuerza con NEXT_PUBLIC_PIXEL_ENABLED="true" / "false".
+ */
+export const PIXEL_ENABLED =
+  Boolean(PIXEL_ID) &&
+  (process.env.NEXT_PUBLIC_PIXEL_ENABLED === "true" ||
+    (process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_PIXEL_ENABLED !== "false"));
 export const PIXEL_DEBUG = process.env.NEXT_PUBLIC_PIXEL_DEBUG === "true";
 
-export type StandardEvent = "PageView" | "ViewContent" | "Contact" | "Lead";
+export type StandardEvent = "PageView" | "ViewContent" | "Contact" | "Lead" | "CompleteRegistration";
 export type CustomEvent = "FormStart";
 export type PixelEvent = StandardEvent | CustomEvent;
 
-const STANDARD: ReadonlySet<string> = new Set(["PageView", "ViewContent", "Contact", "Lead"]);
+const STANDARD: ReadonlySet<string> = new Set(["PageView", "ViewContent", "Contact", "Lead", "CompleteRegistration"]);
 
 export type PixelParams = {
   content_name?: string;
